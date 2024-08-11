@@ -19,9 +19,23 @@ const canvas = document.querySelector('canvas.webgl');
 
 // Sizes
 const sizes = {
-  width: 800,
-  height: 600,
+  width: window.innerWidth, // viewport
+  height: window.innerHeight,
 };
+
+window.addEventListener('resize', () => {
+  // update size
+  sizes.width = window.innerWidth;
+  sizes.height = window.innerHeight;
+
+  // update camera
+  camera.aspect = sizes.width / sizes.height;
+  camera.updateProjectionMatrix();
+
+  // update render
+  renderer.setSize(sizes.width, sizes.height);
+  render.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+});
 
 // Scene
 const scene = new THREE.Scene();
